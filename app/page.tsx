@@ -33,7 +33,7 @@ export default function Home() {
   const askQuestion = async () => {
     if (!question.trim()) return;
 
-    const userMessage = { sender: "user", text: question };
+    const userMessage: Message = { sender: "user", text: question };
     setMessages((prev) => [...prev, userMessage]);
     setQuestion("");
     setIsTyping(true);
@@ -46,7 +46,7 @@ export default function Home() {
       });
 
       const data = await response.json();
-      const botMessage = {
+      const botMessage: Message = {
         sender: "bot",
         text: data.answer.result,
         source: data.answer.source || "",
