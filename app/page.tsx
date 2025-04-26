@@ -6,10 +6,16 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
+type Message = {
+  sender: "user" | "bot";
+  text: string;
+  source?: string;
+};
+
 export default function Home() {
   const [question, setQuestion] = useState("");
-  const [messages, setMessages] = useState([
-    { sender: "bot", text: "Hei! Jeg kan svare på spørsmål om TEK17 kapittel 11 🔥" },
+  const [messages, setMessages] = useState<Message[]>([
+    { sender: "bot", text: "Hei! Jeg kan svare på spørsmål om TEK17 kapittel 11 🔥", source: "" },
   ]);
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -41,7 +47,7 @@ export default function Home() {
       const botMessage = {
         sender: "bot",
         text: data.answer.result,
-        source: data.answer.source,
+        source: data.answer.source || "",
       };
 
       setMessages((prev) => [...prev, botMessage]);
